@@ -3,7 +3,7 @@
 ## contents
 | title | source code |
 | --- | --- |
-| Pipelines for inference | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/nattyo1226/hf_tutorial/blob/main/src/pipeline.ipynb) |
+| Pipelines for inference | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/nattyo1226/hf_tutorial/blob/main/src/pipelines.ipynb) |
 
 ## how to use
 - google colab
