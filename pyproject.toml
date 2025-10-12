@@ -1,0 +1,22 @@
+[project]
+name = "hf-tutorial"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "accelerate>=1.10.1",
+    "datasets>=4.2.0",
+    "evaluate>=0.4.6",
+    "ffmpeg-python>=0.2.0",
+    "pillow>=11.3.0",
+    "pytesseract>=0.3.13",
+    "torch>=2.8.0",
+    "torchcodec>=0.7.0",
+    "transformers>=4.57.0",
+]
+
+[dependency-groups]
+dev = [
+    "ipykernel>=6.30.1",
+]
