@@ -133,12 +133,12 @@ def _(mo):
     - `Kelas` API を利用して `TensorFlow` で訓練するもの
     - ネイティブの `PyTorch` で訓練するもの
 
-    これらの利点・欠点は下表のとおりです。
+    これらの利点・欠点は下表のとおりです (`GPT-5` および `gemini-2.5-pro` による回答のまとめ) 。
 
     | method | advantage 👍 | disadvantage 👎 |
-    |: ---- |: ---- |: ---- |
-    | `Trainer` | 高水準 API を用いて短いコードで実装できる | カスタム性に欠ける |
-    | `Kelas` + `TensorFlow` | `TensorFlow` 専用の TPU ハードウェアや `Keras` の API が利用できる | `🤗 Transformers` はそもそも `PyTorch` 中心で、一部の機能は PyTorch 限定 |
+    | :---- | :---- | :---- |
+    | `Trainer` | 高水準 API を用いて短いコードで実装できる | 柔軟性に欠ける |
+    | `Kelas` + `TensorFlow` | `TensorFlow` に慣れている人には親しみやすい、`Trainer` よりは柔軟に実装できる | `🤗 Transformers` はそもそも `PyTorch` 中心、コミュニティの規模が `PyTorch` に比べて小さい |
     | Native `PyTorch` | 低水準 API を用いて柔軟にカスタマイズできる | コード量が多く、実装が比較的複雑 |
 
     本チュートリアルでは、`Trainer` と Native `PyTorch` の 2 通りの手法を紹介します。
