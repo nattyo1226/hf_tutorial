@@ -47,7 +47,7 @@ def _(mo):
 def _():
     # run this cell if you are working in google colab
 
-    # %pip install accelerate bitsandbytes datasets ffmpeg-python transformers torch torchcodec pillow pytesseract
+    # %pip install bitsandbytes torchcodec pytesseract
     return
 
 
@@ -56,9 +56,10 @@ def _():
     # import dependencies
 
     from datasets import load_dataset
+    import torch
     from transformers import pipeline
     from transformers.pipelines.pt_utils import KeyDataset
-    return KeyDataset, load_dataset, pipeline
+    return KeyDataset, load_dataset, pipeline, torch
 
 
 @app.cell(hide_code=True)
@@ -367,12 +368,12 @@ def _(mo):
 
 
 @app.cell
-def _():
+def _(pipeline, torch):
     # model: "facebook/opt-1.3b" (1.3B params, heavy)
     # ref: https://huggingface.co/facebook/opt-1.3b
 
-    # pipe_acc1 = pipeline(model="facebook/opt-1.3b", dtype=torch.bfloat16, device_map="auto")
-    # pipe_acc1("これは素晴らしい例です！", do_sample=True, top_p=0.95)
+    pipe_acc1 = pipeline(model="facebook/opt-1.3b", dtype=torch.bfloat16, device_map="auto")
+    pipe_acc1("This is a cool example!", do_sample=True, top_p=0.95)
     return
 
 
