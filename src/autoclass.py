@@ -28,7 +28,7 @@ def _(mo):
     このチュートリアルコードをすべて実行するためには、明示的に `import` するライブラリの他に、以下のソフトウェアが必要です。
 
     - [`tesseract`](https://github.com/tesseract-ocr/tesseract) (および、その Python ラッパー: `pytesseract`): 動画処理
-    - `torch` ライブラリ or `tensorflow` ライブラリ: `AutoModelForSequenceClassification` クラスなどのバックエンド
+    - `torch` ライブラリ or `tensorflow` ライブラリ: バックエンド
         - 本チュートリアルでは `torch` を用いるコードしか紹介しません
     """
     )
