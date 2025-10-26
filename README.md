@@ -3,7 +3,7 @@
 ## contents
 | title | source code |
 | --- | --- |
-| Pipelines for inference | ![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg) |
+| Pipelines for inference | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/nattyo1226/hf_tutorial/blob/main/out/pipelines.ipynb) |
 | Load pretrained instances with an AutoClass | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/nattyo1226/hf_tutorial/blob/main/out/autoclass.ipynb) |
 
 ## how to setup environment
