@@ -39,7 +39,7 @@ def _(mo):
 def _():
     # run this cell if you are working in google colab
 
-    # %pip install libsora pytesseract pillow torch transformers
+    # %pip install pytesseract
     return
 
 
