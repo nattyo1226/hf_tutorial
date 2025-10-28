@@ -56,6 +56,7 @@ def _():
     from torch.utils.data import DataLoader
     from tqdm.auto import tqdm
     return (
+        AutoModelForSequenceClassification,
         AutoTokenizer,
         Trainer,
         TrainingArguments,
@@ -162,12 +163,10 @@ def _(mo):
     return
 
 
-app._unparsable_cell(
-    r"""
-    model = AutoModelForSequenceClassification.from_pretrained(\"google-bert/bert-base-cased\", num_labels=5)z
-    """,
-    name="_"
-)
+@app.cell
+def _(AutoModelForSequenceClassification):
+    model = AutoModelForSequenceClassification.from_pretrained("google-bert/bert-base-cased", num_labels=5)
+    return (model,)
 
 
 @app.cell(hide_code=True)
