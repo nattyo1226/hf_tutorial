@@ -1,6 +1,6 @@
 import marimo
 
-__generated_with = "0.17.0"
+__generated_with = "0.17.2"
 app = marimo.App(width="medium")
 
 
@@ -39,7 +39,7 @@ def _(mo):
 def _():
     # run this cell if you are working in google colab
 
-    # %pip install pytesseract torchvision
+    # %pip install pytesseract torchcodec
     return
 
 
@@ -217,7 +217,7 @@ def _(mo):
     return
 
 
-@app.cell(hide_code=True)
+@app.cell
 def _(batch_sentences, tokenizer):
     encoded_inputs4 = tokenizer(batch_sentences, padding=True, truncation=True, return_tensors="pt")
     print(encoded_inputs4)
@@ -279,11 +279,11 @@ def _(AutoFeatureExtractor):
 
 
 @app.cell
-def _(dataset_audio2, feature_extractor):
-    audio_input1 = [dataset_audio2[0]["audio"]["array"]]
-    print(feature_extractor(audio_input1))
-    audio_input2 = [dataset_audio2[1]["audio"]["array"]]
-    print(feature_extractor(audio_input2))
+def _():
+    # audio_input1 = [dataset_audio2[0]["audio"]["array"]]
+    # print(feature_extractor(audio_input1))
+    # audio_input2 = [dataset_audio2[1]["audio"]["array"]]
+    # print(feature_extractor(audio_input2))
     return
 
 
