@@ -28,13 +28,13 @@ def _(mo):
 
     このチュートリアルコードをすべて実行するためには、明示的に `import` するライブラリの他に、以下のソフトウェアが必要です。
 
-    - [`ffmpeg`](https://www.ffmpeg.org/): 動画処理
-    - [`tesseract`](https://github.com/tesseract-ocr/tesseract) (および、その Python ラッパー: `pytesseract`): 画像処理
+    - [`ffmpeg`](https://www.ffmpeg.org/): 音声処理
+    - [`tesseract`](https://github.com/tesseract-ocr/tesseract) (および、その Python ラッパー: `pytesseract`): 画像処理 (ocr)
     - `accelerate` ライブラリ: モデルの自動配置
     - `bitsandbytes` ライブラリ: モデルの量子化
         - linux, windows のみサポート
     - `pillow` ライブラリ: 画像処理
-    - `torchcodec` ライブラリ: 動画処理
+    - `torchcodec` ライブラリ: 音声処理
 
     もし自分の環境にインストールされていない場合には、事前にインストールしておいてください。\
     なお、`ffmpeg` と `tesseract` に関しては、macOSであれば [`Homebrew`](https://formulae.brew.sh) から簡単にインストールできるようです (動作未確認) 。
