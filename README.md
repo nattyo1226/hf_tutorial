@@ -11,11 +11,13 @@
 ## How to setup environment
 - local machine
     - `uv` (recommended)
-        - `uv lock`: resolve dependency relations & create `uv.lock`
+        - `uv lock --upgrade`: resolve dependency relations & create `uv.lock`
         - `make install`: install appropriate `PyTorch` & create `.venv`
     - `pip`
         - `pip install .`: install main dependencies
         - `pip install .[dev]`: install sub dependencies for developpment
+        - `pip install .[cpu]`: install `PyTorch` for cpu
+        - `pip install .[gpu]`: install `PyTorch` for gpu
 - google colab
     - run first cell
 
