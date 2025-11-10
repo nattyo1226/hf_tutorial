@@ -20,8 +20,8 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-cpu = ["torch==2.8.0"]
-gpu = ["torch==2.8.0"]
+cpu = ["torch>=2.8.0"]
+gpu = ["torch>=2.8.0"]
 
 [dependency-groups]
 dev = [
@@ -52,5 +52,5 @@ explicit = true
 
 [[tool.uv.index]]
 name = "pytorch-gpu"
-url = "https://download.pytorch.org/whl/cu126"
+url = "https://download.pytorch.org/whl/cu129"
 explicit = true
