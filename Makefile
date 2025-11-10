@@ -1,4 +1,4 @@
-HAS_CUDA := $(shell command -v nvcc 2> /dev/null && echo 1 || echo 0)
+HAS_CUDA := $(shell if command -v nvcc >/dev/null 2>&1; then echo 1; else echo 0; fi)
 
 .PHONY: install
 install: ## Setup the project
