@@ -21,9 +21,11 @@
 
 ## How to enjoy tutorials
 - `marimo/*.py` (marimo botebook, recommended)
-    - `(uv run) marimo edit path/to/*.py`
+    - `(uv run) marimo edit marimo/*.py`
 - `jupyater/*.ipynb` (jupyter notebook)
     - open them in you favorite editor (vscode, jupyter, google colab ...)
+- `src/*py` (source code to run on miyabi)
+    - `qsub script/job.sh`
 
 ## Issues
 - When attempting to build the environment on Miyabi with `uv`, it throws an error due to compatibility issues with `torchcodec`. Since `torchcodec` is not used for fine-tuning, please remove it from the dependencies on `pyproject.toml`.
