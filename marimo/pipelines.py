@@ -1,13 +1,12 @@
 import marimo
 
-__generated_with = "0.17.2"
+__generated_with = "0.17.7"
 app = marimo.App(width="medium")
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     # Pipelines for inference
 
     本チュートリアルでは、`pipeline()` を用いて、訓練済みモデルによって様々な推論タスクを実行する手法を学びます。
@@ -15,15 +14,13 @@ def _(mo):
     ローカルで実行する際は注意してください。
 
     本チュートリアルは、[Hugging Face Transformers チュートリアル](https://huggingface.co/docs/transformers/v4.57.1/ja/pipeline_tutorial) を元に、一部加筆・修正して作成しています。
-    """
-    )
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     ## Dependencies
 
     このチュートリアルコードをすべて実行するためには、明示的に `import` するライブラリの他に、以下のソフトウェアが必要です。
@@ -38,8 +35,7 @@ def _(mo):
 
     もし自分の環境にインストールされていない場合には、事前にインストールしておいてください。\
     なお、`ffmpeg` と `tesseract` に関しては、macOSであれば [`Homebrew`](https://formulae.brew.sh) から簡単にインストールできるようです (動作未確認) 。
-    """
-    )
+    """)
     return
 
 
@@ -64,16 +60,14 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     ## Pipeline usage
 
     `pipeline(task="task")` により、推論タスク `"task"` を行うためのデフォルトのモデルが提供されます。
     提供される構造体は、入力に対して事前処理・推論・事後処理をワンライナーで実行します。
 
     <audio src="https://huggingface.co/datasets/Narsil/asr_dummy/resolve/main/mlk.flac" controls></audio>
-    """
-    )
+    """)
     return
 
 
@@ -89,12 +83,10 @@ def _(pipeline):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     具体的な推論モデルを指定するには、`pipeline(model="model")` とします。
     モデルの一覧は [`Hub`](https://huggingface.co/models) から確認できます。
-    """
-    )
+    """)
     return
 
 
@@ -111,15 +103,13 @@ def _(pipeline):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     複数の入力を `list` で受け取ることもできます。
 
     <audio src="https://huggingface.co/datasets/Narsil/asr_dummy/resolve/main/mlk.flac" controls></audio>
 
     <audio src="https://huggingface.co/datasets/Narsil/asr_dummy/resolve/main/1.flac" controls></audio>
-    """
-    )
+    """)
     return
 
 
@@ -134,8 +124,7 @@ def _(pipe_asr1):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     ## Parameter
 
     `pipeline()` はタスク固有・非固有の多くのパラメータをサポートしています。
@@ -149,15 +138,13 @@ def _(mo):
     ```
 
     以下で、特によく用いられるパラメータを紹介します。
-    """
-    )
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     ### Device
 
     `device=n` を指定すると、モデルが指定したデバイスのメモリに配置されます。
@@ -170,35 +157,30 @@ def _(mo):
 
     なお、特に `device` の値を指定しなくても、GPU を使用するように自動的にデバイスが決定されるようです。
     筆者の環境 (M4 MacBook Air) では、Apple GPU (mps) が自動的に選択されました。
-    """
-    )
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     ### Batch Size
 
     `batch_size=n` を指定することで、バッチサイズ `n` で推論することができます。
     ただし、バッチ処理によって実行速度の向上が必ずしも期待できるわけではなく、いくつかのケースではかなり遅くなることが確認されているようです。
     なお、バッチ処理を行ったとしても、得られる結果はバッチ処理を行わない場合と一致します。
-    """
-    )
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     ### Task specific parameters
 
     すべてのタスクにおいて、タスク固有のパラメータが提供されています。
     例えば、`transformers.AutomaticSpeechRecognitionPipeline.call()` メソッドには、適当な単位で推論結果を区切ってタイムスタンプと同時に出力する `return_timestamps` パラメータがあります。
-    """
-    )
+    """)
     return
 
 
@@ -214,13 +196,11 @@ def _(pipeline):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     ## Using pipeline in a dataset
 
     `pipeline()` は大規模なデータセット上で推論を実行することもできます。
-    """
-    )
+    """)
     return
 
 
@@ -234,16 +214,17 @@ def _(pipeline):
             yield f"My example {i}"
 
     pipe_tg1 = pipeline(model="openai-community/gpt2", device=0)
-    generated_characters = 0
     for out_tg1 in pipe_tg1(data()):
-        generated_characters += len(out_tg1[0]["generated_text"])
-    print(generated_characters)
+        print(out_tg1[0]["generated_text"][:250], "...")
+        print("---\n")
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(r"""`🤗 Datasets` からデータセットをロードして繰り返し反復させることもできます。""")
+    mo.md(r"""
+    `🤗 Datasets` からデータセットをロードして繰り返し反復させることもできます。
+    """)
     return
 
 
@@ -259,28 +240,24 @@ def _(KeyDataset, load_dataset, pipeline):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     ## Using pipelines for a webserver
 
     このセクションは飛ばします。
-    """
-    )
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     ## Vision pipeline
 
     画像処理タスクでの使用例は以下の通りです。
     ここでは、写真に写っているオブジェクトを分類する推論タスクを実行しています。
 
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/pipeline-cat-chonk.jpeg" width="30%">
-    """
-    )
+    """)
     return
 
 
@@ -300,14 +277,12 @@ def _(pipeline):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     ## Text pipeline
 
     テキスト処理タスクでの使用例は以下の通りです。
     ここでは、テキストのコンテンツの性格を分類するタスクを実行しています。
-    """
-    )
+    """)
     return
 
 
@@ -326,16 +301,14 @@ def _(pipeline):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     ## Multimodal pipeline
 
     `pipeline()` は、複数のモダリティをサポートしています。
     ここでは、テキスト処理と画像処理を組み合わせて、画像からインボイス番号を推論させています。
 
     <img src="https://huggingface.co/spaces/impira/docquery/resolve/2359223c1837a7587402bda0f2643382a6eefeab/invoice.png" width="30%">
-    """
-    )
+    """)
     return
 
 
@@ -356,14 +329,12 @@ def _(pipeline):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     ## Using pipeline on large models with 🤗 accelarate
 
     `device_map="auto"` を指定して、モデルを利用可能なデバイス上で適切に分配してロードします。
     これにより、単一のデバイスではメモリに乗り切らない大規模なモデルを利用することができます。
-    """
-    )
+    """)
     return
 
 
@@ -379,12 +350,10 @@ def _(pipeline, torch):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     さらに、`bitsandbytes` ライブラリをインストールの上、`load_in_8bit=True` を指定すれば、モデルを 8 bit で量子化して読み込むことができます。
     ただし、`bitsandbytes` は現状 linux と windows しかサポートしていません。
-    """
-    )
+    """)
     return
 
 
