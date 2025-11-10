@@ -1,28 +1,25 @@
 import marimo
 
-__generated_with = "0.17.2"
+__generated_with = "0.17.7"
 app = marimo.App(width="medium")
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     # Preprocess
 
     テキストや音声、画像をモデルに渡して推論・訓練を行うためには、事前にそれらをモデルが期待する形式に変換しておく必要があります。
     本チュートリアルでは、`Transformers` ライブラリが提供する、データの事前処理の手法について学びます。
 
     本チュートリアルは、[Hugging Face Transformers チュートリアル](https://huggingface.co/docs/transformers/v4.57.1/ja/preprocessing) を元に、一部加筆・修正して作成しています。
-    """
-    )
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     ## Dependencies
 
     このチュートリアルコードをすべて実行するためには、明示的に `import` するライブラリの他に、以下のソフトウェアが必要です。
@@ -30,8 +27,7 @@ def _(mo):
     - [`tesseract`](https://github.com/tesseract-ocr/tesseract) (および、その Python ラッパー: `pytesseract`): 画像処理 (ocr)
     - `torch` ライブラリ or `tensorflow` ライブラリ: バックエンド
         - 本チュートリアルでは `torch` を用いるコードしか紹介しません
-    """
-    )
+    """)
     return
 
 
@@ -77,8 +73,7 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     ## Natural Language Processing
 
     自然言語処理のタスクにおいて、テキストの事前処理に使用する主なアーキテクチャは**トーカナイザ**です。
@@ -87,8 +82,7 @@ def _(mo):
     個々のトークンに識別番号を振ることでテキストが数列に変換され、これにより、機械学習モデルが文字列を数理的に取り扱えるようになります。
 
     ここでも、`from_pretrained()` メソッドを使用します。
-    """
-    )
+    """)
     return
 
 
@@ -110,8 +104,7 @@ def _(tokenizer):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     ここで、トーカナイザの出力について補足しておきます。
 
     - `input_ids`: 文中の各トークンに対応するインデックス
@@ -120,8 +113,7 @@ def _(mo):
 
     `input_ids` をデコードすることで元の入力が得られます。
     ここでわかるように、トーカナイザは文章に自動的に特別なトークン (`CLS`, `SEP`) を付与します。
-    """
-    )
+    """)
     return
 
 
@@ -133,7 +125,9 @@ def _(encoded_input, tokenizer):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(r"""複数の文章の前処理を行うこともできます。""")
+    mo.md(r"""
+    複数の文章の前処理を行うこともできます。
+    """)
     return
 
 
@@ -151,8 +145,7 @@ def _(tokenizer):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     ### Padding
 
     テキストは常に同じ長さ (同じトークン数) とは限りませんが、推論モデルはある特定の長さの入力しか受け付けることができません。
@@ -160,8 +153,7 @@ def _(mo):
 
     このための戦略の1つがパディングです。
     `padding=True` を指定することで、入力バッチ中の最長のテキストに合わせて、短いテキストに**パディングトークン**が追加されます。
-    """
-    )
+    """)
     return
 
 
@@ -174,14 +166,12 @@ def _(batch_sentences, tokenizer):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     ### Truncation
 
     入力テキストの長さが、モデルが期待する入力次元を超えてしまう場合があります。
     `truncation=True` を指定することで、モデルが受け入れる最大の長さにトークン列を切り詰めます。
-    """
-    )
+    """)
     return
 
 
@@ -194,7 +184,9 @@ def _(batch_sentences, tokenizer):
 
 @app.cell
 def _(mo):
-    mo.md(r"""ちなみに、今回利用している "google-bert/bert-base-cased" モデルが浮き入れる最大トークン数は 512 であるため、`batch_sentences` に含まれている入力テキスト程度のトークン数では Truncation は有効に効いてきません。""")
+    mo.md(r"""
+    ちなみに、今回利用している "google-bert/bert-base-cased" モデルが浮き入れる最大トークン数は 512 であるため、`batch_sentences` に含まれている入力テキスト程度のトークン数では Truncation は有効に効いてきません。
+    """)
     return
 
 
@@ -205,36 +197,40 @@ def _(AutoConfig):
     return
 
 
+@app.cell
+def _(tokenizer):
+    sentence_long = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sapien diam, tempor at luctus commodo, cursus ac risus. Donec sit amet nulla a augue condimentum placerat vel in tellus. Duis lacus sapien, feugiat id urna et, laoreet dictum lorem. Sed accumsan consectetur fringilla. Sed sagittis sagittis dui id laoreet. Quisque consequat metus quis neque tempor vehicula. Etiam pretium ligula non est lobortis egestas. Aliquam a pharetra velit. Pellentesque pretium cursus dictum. Curabitur sodales sit amet nisi ac ultrices. Quisque magna dolor, elementum eu porttitor a, blandit eget nisi. Nam quis ante congue, ornare lacus vitae, tincidunt arcu. Phasellus id vulputate orci. Suspendisse enim enim, malesuada at elit quis, suscipit mattis mauris. Fusce aliquet metus imperdiet tristique lacinia. Nullam tristique nunc a cursus laoreet. Nullam odio velit, tristique at purus et, fermentum ullamcorper erat. Ut id facilisis sem. Nulla facilisi. Maecenas sed quam at metus aliquet vehicula sit amet id libero. Cras sit amet blandit mauris. Pellentesque quis ullamcorper tortor. Proin blandit odio at convallis finibus. Ut id consequat diam, ac porta ex. Nullam interdum a lacus posuere tincidunt. Nunc libero nibh, viverra in euismod et, interdum sed leo. Mauris venenatis suscipit mi, vitae cursus neque blandit ac. Maecenas sollicitudin arcu id sem pharetra varius. Nunc dignissim nunc magna, ac semper dolor sollicitudin venenatis. Vestibulum non condimentum odio."
+    encoded_inputs4 = tokenizer(sentence_long, padding=True, truncation=True)
+    encoded_inputs4["input_ids"].len()
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     ### Build tensors
 
     `return_tensors="pt"` (`"tf"`) を指定することで、出力を `PyTorch` (`TensorFlow`) のテンソル形式に変換します。
-    """
-    )
+    """)
     return
 
 
 @app.cell
 def _(batch_sentences, tokenizer):
-    encoded_inputs4 = tokenizer(batch_sentences, padding=True, truncation=True, return_tensors="pt")
-    print(encoded_inputs4)
+    encoded_inputs5 = tokenizer(batch_sentences, padding=True, truncation=True, return_tensors="pt")
+    print(encoded_inputs5)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     ## Audio
 
     音声処理タスクにおいて、音声データの事前処理に使用する主なアーキテクチャは**特徴抽出器**です。特徴抽出器は生の音声データから特徴を抽出し、それらをテンソルに変換します。
 
     まず、入力データセットをロードします。
-    """
-    )
+    """)
     return
 
 
@@ -247,12 +243,10 @@ def _(load_dataset):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     `dataset_audio.features` によると、サンプリングレートは 8 kHz であるようです。
     今回は Wav2Vec2 モデルへの入力を想定しますが、このモデルはサンプリングレート 16 kHz のデータで事前学習されているので、`dataset_audio` を 16 kHz でリサンプルしましょう。
-    """
-    )
+    """)
     return
 
 
@@ -265,7 +259,9 @@ def _(Audio, dataset_audio):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(r"""次に、特徴抽出器を用いて入力データを正規化します。""")
+    mo.md(r"""
+    次に、特徴抽出器を用いて入力データを正規化します。
+    """)
     return
 
 
@@ -279,23 +275,21 @@ def _(AutoFeatureExtractor):
 
 
 @app.cell
-def _():
-    # audio_input1 = [dataset_audio2[0]["audio"]["array"]]
-    # print(feature_extractor(audio_input1))
-    # audio_input2 = [dataset_audio2[1]["audio"]["array"]]
-    # print(feature_extractor(audio_input2))
+def _(dataset_audio2, feature_extractor):
+    audio_input1 = [dataset_audio2[0]["audio"]["array"]]
+    print(feature_extractor(audio_input1))
+    audio_input2 = [dataset_audio2[1]["audio"]["array"]]
+    print(feature_extractor(audio_input2))
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     テキストデータと同様に、データセットに含まれる音声データの長さがすべて等しいとは限らず (`shape` メンバを参照) 、また、モデルが期待する入力の長さには限りがあります。
     そこで、パディングとトランケーションを行います。
     特徴抽出器では、最大サンプル長を制御するために `max_length=<number>` を指定します。
-    """
-    )
+    """)
     return
 
 
@@ -324,8 +318,7 @@ def _(dataset_audio2, preprocess_function):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     ## Computer Vision
 
     画像処理タスクにおいて、画像データの事前処理に使用する主なアーキテクチャは**画像プロセッサ**です。
@@ -333,8 +326,7 @@ def _(mo):
     補正などの処理を行い、それらをテンソルに変換します。
 
     例によって、データセットと画像プロセッサを読み込みます。
-    """
-    )
+    """)
     return
 
 
@@ -356,8 +348,7 @@ def _(AutoImageProcessor):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     続いて、データセットに含まれる画像データを、所定の方法で処理していきます。
     ここでは、`torchvision` の `transforms` モジュールを使用します。
     ここで行う処理は以下のとおりです。
@@ -366,8 +357,7 @@ def _(mo):
     - `ColorJitter`: 画像の色調や明るさをランダムに変化させる。
         - `brightness=0.5`: 明るさを $\pm 50 \%$ の範囲でランダムに変化させる。
         - `hue=0.5`: 色相値を $\pm 0.5$ の範囲でランダムに変化させる。
-    """
-    )
+    """)
     return
 
 
@@ -388,7 +378,9 @@ def _(ColorJitter, Compose, RandomResizedCrop, image_processor):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(r"""`transforms_core` をデータセットの各画像に適用し、画像プロセッサで処理します。""")
+    mo.md(r"""
+    `transforms_core` をデータセットの各画像に適用し、画像プロセッサで処理します。
+    """)
     return
 
 
@@ -410,49 +402,55 @@ def _(dataset_cv, transforms):
 
 @app.cell
 def _(dataset_cv, plt):
-    img = dataset_cv[0]["pixel_values"]
+    img = dataset_cv[0]["pixel_values"] * 0.5 + 0.5
     plt.imshow(img.permute(1, 2, 0))
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     ### Padding
 
-    データセットに含まれる画像のサイズが異なる場合には、`DataImageProcessor.pad()` によってパディングを施します。
-    """
-    )
+    DETR (DEtection TRansformer) などのいくつかのモデルは、可変長の入力をとり扱うことができます。
+    しかし、`PyTorch` の `DataLoader` は異なるサイズの画像を同時に取り扱うことができません。
+    このような場合、`DetrImageProcessor.pad()` メソッドによって、入力バッチの中でサイズが最大のものに合わせて周りをゼロで埋めるパディングを施すことができます。
+    """)
     return
 
 
 @app.cell
-def _(image_processor):
+def _(AutoImageProcessor):
+    image_processor_detr = AutoImageProcessor.from_pretrained("facebook/detr-resnet-50")
+
     def collate_fn(batch):
         pixel_values = [item["pixel_values"] for item in batch]
-        encoding = image_processor.pad(pixel_values, return_tensors="pt")
-        labels = [item["labels"] for item in batch]
+        encoding = image_processor_detr.pad(pixel_values, return_tensors="pt")
+        labels = [item["label"] for item in batch]
         batch = {}
         batch["pixel_values"] = encoding["pixel_values"]
         batch["pixel_mask"] = encoding["pixel_mask"]
         batch["labels"] = labels
         return batch
+    return (collate_fn,)
+
+
+@app.cell
+def _(collate_fn, dataset_cv):
+    collate_fn(dataset_cv)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     ## Multi Modal
 
     マルチモーダルタスクにおいて、データの事前処理に使用する主なアーキテクチャは**プロセッサ**です。 プロセッサはトーカナイザや特徴抽出器などの複数の事前処理アーキテクチャを結合します。
 
     まずはデータセットを読み込みます。
     [オリジナルのチュートリアル](https://huggingface.co/docs/transformers/v4.57.1/ja/preprocessing) では `lj_speech` というデータセットが読み込まれていますが、このデータセットは最新の `datasets` (version 4.3.0) ではサポートされていないので、別のデータセットをダウンロードします。
-    """
-    )
+    """)
     return
 
 
@@ -465,7 +463,9 @@ def _(load_dataset):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(r"""今回興味があるのは `audio` と `text` だけなので、それ以外のメンバを削除してしまいます。""")
+    mo.md(r"""
+    今回興味があるのは `audio` と `text` だけなので、それ以外のメンバを削除してしまいます。
+    """)
     return
 
 
@@ -480,12 +480,10 @@ def _(librispeech1):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     `librispeech_asr_demo` データセットはサンプリングレートが 16 kHz でモデルの事前学習データセットのサンプリングレートと一致しているので、リサンプリングの必要はありません。
     安心してモデルを読み込みましょう。
-    """
-    )
+    """)
     return
 
 
@@ -500,7 +498,9 @@ def _(AutoProcessor):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(r"""`processor` に `audio` と `text` を指定して、事前処理を行います。""")
+    mo.md(r"""
+    `processor` に `audio` と `text` を指定して、事前処理を行います。
+    """)
     return
 
 
