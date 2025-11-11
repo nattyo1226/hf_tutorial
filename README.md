@@ -24,7 +24,7 @@
 ## How to enjoy tutorials
 - `marimo/*.py` (marimo botebook, recommended)
     - `(uv run) marimo edit marimo/*.py`
-- `jupyater/*.ipynb` (jupyter notebook)
+- `jupyter/*.ipynb` (jupyter notebook)
     - open them in you favorite editor (vscode, jupyter, google colab ...)
 - `src/*py` (source code to run on miyabi)
     - `qsub script/job.sh`
