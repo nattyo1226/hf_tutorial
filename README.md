@@ -22,7 +22,7 @@
     - run first cell
 
 ## How to enjoy tutorials
-- `marimo/*.py` (marimo botebook, recommended)
+- `marimo/*.py` (marimo notebook, recommended)
     - `(uv run) marimo edit marimo/*.py`
 - `jupyter/*.ipynb` (jupyter notebook)
     - open them in you favorite editor (vscode, jupyter, google colab ...)
