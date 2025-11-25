@@ -1,4 +1,12 @@
+# marimo session
 __marimo__
-test_trainer
+
+# uv lock
 uv.lock
+
+# venv
 .venv
+
+# result
+test_torch
+test_trainer
