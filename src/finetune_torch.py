@@ -1,6 +1,5 @@
 from datasets import load_dataset
 import evaluate
-import numpy as np
 from transformers import (
     AutoModelForSequenceClassification,
     AutoTokenizer,
@@ -40,7 +39,8 @@ def main():
     
     # build learning rate scheduler
     num_epochs = 3
-    num_training_steps = num_epochs * len(train_dataloader)
+    num_batch = len(train_dataloader)
+    num_training_steps = num_epochs * num_batch
     lr_scheduler = get_scheduler(
         name="linear",
         optimizer=optimizer,
@@ -50,14 +50,13 @@ def main():
     
     # set device
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
+    # device = torch.device("mps") if torch.backends.mps.is_available() else torch.device("cpu")
     model.to(device)
-
+    
     # train
-    progress_bar = tqdm(range(num_training_steps))
-
-    model.train()
     for epoch in range(num_epochs):
-        for batch_t in train_dataloader:
+        model.train()
+        for batch_t in tqdm(train_dataloader, desc="train"):
             batch_train = {k: v.to(device) for k, v in batch_t.items()}
             outputs_train = model(**batch_train)
             loss = outputs_train.loss
@@ -66,23 +65,24 @@ def main():
             optimizer.step()
             lr_scheduler.step()
             optimizer.zero_grad()
-            progress_bar.update(1)
-    
-    model.save_pretrained("test_torch")
-    
-    # evaluate
-    metric = evaluate.load("accuracy")
-    model.eval()
-    for batch_e in eval_dataloader:
-        batch_eval = {k: v.to(device) for k, v in batch_e.items()}
-        with torch.no_grad():
-            outputs_eval = model(**batch_eval)
 
-        logits = outputs_eval.logits
-        predictions = torch.argmax(logits, dim=-1)
-        metric.add_batch(predictions=predictions, references=batch_eval["labels"])
-        
-    print(metric.compute())
+        # evaluate
+        model.eval()
+        metric = evaluate.load("accuracy")
+        for batch_e in tqdm(eval_dataloader, desc="eval"):
+            batch_eval = {k: v.to(device) for k, v in batch_e.items()}
+            with torch.no_grad():
+                outputs_eval = model(**batch_eval)
+
+            logits = outputs_eval.logits
+            predictions = torch.argmax(logits, dim=-1)
+            metric.add_batch(predictions=predictions, references=batch_eval["labels"])
+
+        print(f"\n--- epoch: {epoch} ---")
+        print(metric.compute())
+        print("------\n")
+
+    model.save_pretrained("test_torch")
 
 if __name__ == "__main__":
     main()
